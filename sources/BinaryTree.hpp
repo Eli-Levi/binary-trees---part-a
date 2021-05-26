@@ -17,7 +17,7 @@ namespace ariel
         Node *root;
 
     public:
-        BinaryTree() : root(nullptr){};
+        BinaryTree(){};
 
         BinaryTree(BinaryTree &other) //ctor constuctor
         {
@@ -38,10 +38,9 @@ namespace ariel
             return *this;
         }
 
-        friend std::ostream &operator<<(std::ostream &os, BinaryTree &print) { return os; };
-
+        friend std::ostream &operator<<(std::ostream &os, BinaryTree<T> &print) { return os; }
         // continue iterator.
-        class iterator
+        /*class iterator
         {
         protected:
             Node *pointer_to_current_node;
@@ -73,12 +72,14 @@ namespace ariel
             {
                 return &(pointer_to_current_node->value);
             }
-        };
+        };*/
 
-        class inorder : public iterator
+        class inorder //: public iterator
         {
-            public:
-            explicit inorder(Node *ptr = nullptr): iterator(ptr){};
+            Node *curr;
+
+        public:
+            explicit inorder(Node *ptr = nullptr) : curr(ptr){};
 
             inorder &operator++(int) { return *this; } //i++
 
@@ -87,15 +88,33 @@ namespace ariel
                 return *this;
             }
 
+            bool operator==(const inorder &other) const { return false; }
+
+            bool operator!=(const inorder &other) const { return false; }
+
+            T &operator*() const
+            {
+                return curr->value;
+            }
+
+            T *operator->() const
+            {
+                return &(curr->value);
+            }
+
+            friend std::ostream &operator<<(std::ostream &os, inorder &print) { return os; }
+
             //iterator &begin_inorder() { return *this; };
 
             //iterator &end_inorder() { return *this; };
         };
 
-        class preorder : public iterator
+        class preorder //: public iterator
         {
-            public:
-            explicit preorder(Node* ptr = nullptr): iterator(ptr){};
+            Node *curr;
+
+        public:
+            explicit preorder(Node *ptr = nullptr) : curr(ptr){};
 
             preorder &operator++(int) { return *this; } //i++
 
@@ -103,15 +122,33 @@ namespace ariel
             {
                 return *this;
             }
+
+            bool operator==(const preorder &other) const { return false; }
+
+            bool operator!=(const preorder &other) const { return false; }
+
+            T &operator*() const
+            {
+                return curr->value;
+            }
+
+            T *operator->() const
+            {
+                return &(curr->value);
+            }
+
+            friend std::ostream &operator<<(std::ostream &os, preorder &print) { return os; }
             //iterator &begin_preorder() { return *this; };
 
             //iterator &end_preorder() { return *this; };
         };
 
-        class postorder : public iterator
+        class postorder //: public iterator
         {
-            public:
-            explicit postorder(Node* ptr = nullptr): iterator(ptr){};
+            Node *curr;
+
+        public:
+            explicit postorder(Node *ptr = nullptr) : curr(ptr){};
 
             postorder &operator++(int) { return *this; } //i++
 
@@ -119,46 +156,62 @@ namespace ariel
             {
                 return *this;
             }
+
+            bool operator==(const postorder &other) const { return false; }
+
+            bool operator!=(const postorder &other) const { return false; }
+
+            T &operator*() const
+            {
+                return curr->value;
+            }
+
+            T *operator->() const
+            {
+                return &(curr->value);
+            }
+
+            friend std::ostream &operator<<(std::ostream &os, postorder &print) { return os; }
             //iterator &begin_postorder() { return *this; };
 
             //iterator &end_postorder() { return *this; };
         };
 
-        preorder begin_preorder()
+        BinaryTree<T>::preorder begin_preorder()
         {
             return preorder(this->root);
         }
-        preorder end_preorder()
+        BinaryTree<T>::preorder end_preorder()
         {
             return preorder();
         }
 
-        inorder begin_inorder()
+        BinaryTree<T>::inorder begin_inorder()
         {
             return inorder(this->root);
         }
 
-        inorder end_inorder()
+        BinaryTree<T>::inorder end_inorder()
         {
             return inorder();
         }
 
-        postorder begin_postorder()
+        BinaryTree<T>::postorder begin_postorder()
         {
             return postorder(this->root);
         }
 
-        postorder end_postorder()
+        BinaryTree<T>::postorder end_postorder()
         {
             return postorder();
         }
 
-        inorder begin()
+        BinaryTree<T>::inorder begin()
         {
             return inorder(this->root);
         }
 
-        inorder end()
+        BinaryTree<T>::inorder end()
         {
             return inorder();
         }
@@ -168,6 +221,5 @@ namespace ariel
 
         Node *get_right(Node *father) { return father->right_child; }
         Node *get_left(Node *father) { return father->left_child; }
-
     };
 };
