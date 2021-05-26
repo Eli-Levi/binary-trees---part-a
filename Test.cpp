@@ -14,29 +14,21 @@ TEST_CASE("valid empty case")
 
 TEST_CASE("adding root properly")
 {
-    cout << "bla\n";
     BinaryTree<int> tree;
-    cout << "bla bla\n";
     CHECK_NOTHROW(tree.add_root(5));
-    cout << "bla bla bla\n";
 
     CHECK(tree.get_root()->value == 5);
-    cout << "bla bla bla bla\n";
 
     BinaryTree<string> stree;
-    cout << "bla bla bla bla bla\n";
 
     stree.add_root("hello");
-    cout << "FUCK\n";
 }
 
 TEST_CASE("replacing current root")
 {
     BinaryTree<int> tree;
-    cout << "ONE FELL DOWN\n";
 
     CHECK_NOTHROW(tree.add_root(5));
-    cout << "PASS IT AROUND\n";
 
     CHECK_NOTHROW(tree.add_root(20));
     CHECK(tree.get_root()->value == 20);
